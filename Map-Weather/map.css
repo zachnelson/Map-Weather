@@ -1,0 +1,56 @@
+ /*TOP BAR*/
+  
+  div#topbar {
+    background-color: #000000;
+    font-size: 36pt;
+    font-family: 'Abel';
+    color: #898d93;
+    transform: translateY(-10px);
+    text-align: right;
+  }
+  
+  form#zipCode {
+    display: inline;
+    padding-left: 1em;
+  }
+
+  div#city {
+    display: inline;
+    padding-left: 1em;
+  }
+
+  div#time {
+    display: inline;
+    padding-left: 1em;
+  }
+  
+  div#weather {
+    display: inline;
+    padding-left: 1em;
+  }
+  
+  div#temp {
+    display: inline;
+    padding-left: 1em;
+  }
+  
+  /*MAP*/
+  
+  #map {
+    background-color: gray;
+    transform: translateY(-10px);
+    width: 100vw;
+    height: 100vh;
+  }
+  
+
+  /* 
+  
+
+  TODO:
+
+  -fix scaling on desktop
+  -add support for smaller screens/mobile devices
+
+
+  */

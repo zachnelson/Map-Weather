@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Map+Weather</title>
+  <link rel="stylesheet" href="map.css">
+  <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="map.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4Kd2H56yQyjZ2iCMkOCnWvXQsKRPYQpM&libraries=places&callback=myMap">
+  </script>
+</head>
+
+<body onload="update()">
+  <div id="topbar">
+
+      <form id="zipCode" method="GET">
+        <input type="text" placeholder="Enter ZIP Code">
+        <!-- <button onclick="update()">Submit</button> -->
+      </form>
+      <button onclick="update()">Submit</button>
+      
+      <div id="city"></div>
+      <div id="time"></div>
+      <div id="weather"></div>
+      <div id="temp"></div>
+  </div>
+
+  <div id="map"></div>
+</body>
+
+</html>
