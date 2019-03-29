@@ -1,56 +1,29 @@
 function update() {
-  getCurrentTime();
-  getMapAndCurrentWeather();
+  getAreaInfo();
 }
 
-function getZip(){
+function getZip() {
 
-  var url = window.location.href;
-  url = new URL(url);
+  var url = new URL(window.location.href);
   var zip = url.searchParams.get("zipCode");
+
+  //if no zipcode is given, use 73034 as the default
+  if (!zip)
+    zip = 73034;
+
+  if (zip.length < 5) {
+    alert("Please enter a 5 digit US zip code.");
+    zip = 73034;
+  }
 
   return zip;
 }
 
-function getCurrentTime() {
-
-  // TODO: find local time and insert here instead
-
-  var ampm = "am";
-
-  var date = new Date();
-  var hour = date.getHours();
-  var mins = date.getMinutes();
-
-  if (hour >= 12) {
-    if (hour > 12)
-      hour = hour - 12;
-    ampm = "pm";
-  }
-
-  hour = leadingZero(hour);
-  mins = leadingZero(mins);
-
-  var time = hour + ":" + mins + " " + ampm;
-  document.getElementById('time').innerHTML = time;
-
-  setInterval(getCurrentTime, 1000);
-}
-
-//get both the map and the current weather in one function to minimize API calls
-function getMapAndCurrentWeather() {
+function getAreaInfo() {
 
   var zipCode = getZip();
 
-  if(zipCode.length < 5){
-    alert("Please enter a 5 digit US zip code.");
-    zipCode = 73034;
-  }
-
-  if(!zipCode)
-    zipCode = 73034;
-  
-  $.getJSON("http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + ",us&APPID=c725cf94f5d923fe6a6a14767bd1980a", function(json) {
+  $.getJSON("http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + ",us&APPID=c725cf94f5d923fe6a6a14767bd1980a", function (json) {
     weather = JSON.stringify(json.weather[0].main);
     weather = weather.replace(/\"/g, "");
     document.getElementById('weather').innerHTML = weather;
@@ -69,36 +42,53 @@ function getMapAndCurrentWeather() {
     lat = JSON.stringify(json.coord.lat);
 
     //to center at UCO
-    if (zipCode == 73034){
+    if (zipCode == 73034) {
       lat = 35.6549;
       lon = -97.4715;
     }
-    myMap(lat, lon);
+
+    displayMap(lat, lon);
+
+    displayLocalTime(lat, lon);
 
   });
-
-  setInterval(getCurrentWeather, 300000);
 }
 
-function myMap(lat, lon) {
+function displayMap(lat, lon) {
 
-var mapOptions = {
+  var mapOptions = {
     center: new google.maps.LatLng(lat, lon),
     zoom: 19,
     mapTypeId: google.maps.MapTypeId.HYBRID
-};
-var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  };
+  var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 }
 
-// function getZipCode(){
+function displayLocalTime(lat, lon) {
 
-//   var zip = document.getElementById("zipCode").elements[0].value;
+  $.getJSON("http://api.timezonedb.com/v2.1/get-time-zone?key=SJYMRX467K4T&format=json&by=position&lat=" + lat + "&lng=" + lon, function (json) {
 
-//   if (!zip){}
-//   else if (zip.length != 5)
-//     alert("Please enter a 5 digit zip code.") 
-//   else return zip;
-// }
+    time = JSON.stringify((json.formatted));
+
+    hour = time.substring(11, 14);
+    mins = time.substring(15, 17);
+
+    ampm = "am";
+
+    if (hour >= 12) {
+      if (hour > 12)
+        hour = hour - 12;
+      ampm = "pm";
+    }
+
+    hour = leadingZero(hour);
+
+    time = hour + ":" + mins + " " + ampm;
+
+    document.getElementById('time').innerHTML = time;
+  });
+
+}
 
 /*MATH FUNCTIONS*/
 
