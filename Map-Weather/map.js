@@ -81,6 +81,9 @@ function displayLocalTime(lat, lon) {
       ampm = "pm";
     }
 
+    if(hour == 0)
+      hour = 12;
+  
     hour = leadingZero(hour);
 
     time = hour + ":" + mins + " " + ampm;
