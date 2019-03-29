@@ -3,6 +3,15 @@ function update() {
   getMapAndCurrentWeather();
 }
 
+function getZip(){
+
+  var url = window.location.href;
+  url = new URL(url);
+  var zip = url.searchParams.get("zipCode");
+
+  return zip;
+}
+
 function getCurrentTime() {
 
   // TODO: find local time and insert here instead
@@ -31,7 +40,12 @@ function getCurrentTime() {
 //get both the map and the current weather in one function to minimize API calls
 function getMapAndCurrentWeather() {
 
-  var zipCode = getZipCode();
+  var zipCode = getZip();
+
+  if(zipCode.length < 5){
+    alert("Please enter a 5 digit US zip code.");
+    zipCode = 73034;
+  }
 
   if(!zipCode)
     zipCode = 73034;
@@ -76,17 +90,15 @@ var mapOptions = {
 var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 }
 
-function getZipCode(){
+// function getZipCode(){
 
-  var zip = document.getElementById("zipCode").elements[0].value;
+//   var zip = document.getElementById("zipCode").elements[0].value;
 
-  if (!zip){}
-  else if (zip.length != 5)
-    alert("Please enter a 5 digit zip code.") 
-  else return zip;
-}
-
-
+//   if (!zip){}
+//   else if (zip.length != 5)
+//     alert("Please enter a 5 digit zip code.") 
+//   else return zip;
+// }
 
 /*MATH FUNCTIONS*/
 

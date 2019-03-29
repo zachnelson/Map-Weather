@@ -18,11 +18,10 @@
 <body onload="update()">
   <div id="topbar">
 
-      <form id="zipCode" method="GET">
-        <input type="text" placeholder="Enter ZIP Code">
-        <!-- <button onclick="update()">Submit</button> -->
+      <form id="zipCode" method="GET" onsubmit="getZip()">
+        <input type="text" placeholder="Enter ZIP Code" name="zipCode">
+        <input type="submit" value="Submit">
       </form>
-      <button onclick="update()">Submit</button>
       
       <div id="city"></div>
       <div id="time"></div>
