@@ -1,29 +1,8 @@
-function update() {
-  getAreaInfo();
-}
-
-function getZip() {
-
-  var url = new URL(window.location.href);
-  var zip = url.searchParams.get("zipCode");
-
-  //if no zipcode is given, use 73034 as the default
-  if (!zip)
-    zip = 73034;
-
-  if (zip.length < 5) {
-    alert("Please enter a 5 digit US zip code.");
-    zip = 73034;
-  }
-
-  return zip;
-}
-
 function getAreaInfo() {
 
   var zipCode = getZip();
 
-  $.getJSON("http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + ",us&APPID=c725cf94f5d923fe6a6a14767bd1980a", function (json) {
+  $.getJSON("http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + ",us&APPID=c725cf94f5d923fe6a6a14767bd1980a", (json) => {
     weather = JSON.stringify(json.weather[0].main);
     weather = weather.replace(/\"/g, "");
     document.getElementById('weather').innerHTML = weather;
@@ -52,6 +31,25 @@ function getAreaInfo() {
     displayLocalTime(lat, lon);
 
   });
+}
+
+function getZip() {
+
+  //Once the user clicks the submit button, get the zip code from the url
+  var url = new URL(window.location.href);
+  var zip = url.searchParams.get("zipCode");
+
+  //if no zipcode is given, use 73034 as the default
+  if (!zip)
+    zip = 73034;
+
+  //if the user enters an invalid zip code
+  if (zip.length != 5) {
+    alert("Please enter a 5 digit US zip code.");
+    zip = 73034;
+  }
+
+  return zip;
 }
 
 function displayMap(lat, lon) {
