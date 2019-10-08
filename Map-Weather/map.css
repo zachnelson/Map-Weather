@@ -14,38 +14,11 @@
     text-align: right;
   }
   
-  form#zipCode {
-    display: inline;
-    padding-left: 2em;
-    padding-right: 3em;
-  }
-
-  div#city {
-    display: inline;
-    padding-left: 1em;
-  }
-
-  div#time {
-    display: inline;
-    padding-left: 1em;
-  }
-  
-  div#weather {
-    display: inline;
-    padding-left: 1em;
-  }
-  
-  div#temp {
-    display: inline;
-    padding-left: 1em;
-
-  }
-  
   /*MAP*/
   
   #map {
     background-color: gray;
     transform: translateY(-6px);
     width: 100vw;
-    height: 100vh;
+    height: 91vh;
   }
